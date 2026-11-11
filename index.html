@@ -3,254 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Ultimate Draft: EA FC 27</title>
+    <title>Ultimate Draft</title>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap');
 
+        /* TEMALAR */
         :root[data-theme="champions-dark-blue"] { 
-            --bg-grad-1: #071927; 
-            --bg-grad-2: #0c2a42; 
-            --bg-grad-3: #033954; 
-            --primary: #38bdf8;   
-            --secondary: #0284c7; 
-            --gold-light: #fef08a; 
-            --gold-main: #f59e0b;  
-            --gold-dark: #b45309;  
-            --text-main: #e0f2fe; 
-            --text-sub: #bae6fd;  
-            --pitch-color: #059669; 
-            --card-bg: rgba(12, 42, 66, 0.88); 
-            --glass-border: rgba(56, 189, 248, 0.35);
-            --shadow-color: rgba(2, 132, 199, 0.4);
+            --bg-grad-1: #071927; --bg-grad-2: #0c2a42; --bg-grad-3: #033954; 
+            --primary: #38bdf8; --secondary: #0284c7; 
+            --gold-light: #fef08a; --gold-main: #f59e0b; --gold-dark: #b45309;  
+            --text-main: #e0f2fe; --text-sub: #bae6fd;  
+            --pitch-color: #059669; --card-bg: rgba(12, 42, 66, 0.88); 
+            --glass-border: rgba(56, 189, 248, 0.35); --shadow-color: rgba(2, 132, 199, 0.4);
+        }
+
+        :root[data-theme="neon-cyber"] { 
+            --bg-grad-1: #09090e; --bg-grad-2: #1f0b2e; --bg-grad-3: #11051f; 
+            --primary: #ff00ff; --secondary: #8a2be2; 
+            --gold-light: #fef08a; --gold-main: #f59e0b; --gold-dark: #b45309; 
+            --text-main: #fdf4ff; --text-sub: #e8bcf0; 
+            --pitch-color: #1a0b2e; --card-bg: rgba(20, 11, 46, 0.88); 
+            --glass-border: rgba(255, 0, 255, 0.35); --shadow-color: rgba(138, 43, 226, 0.4);
+        }
+
+        :root[data-theme="emerald-pitch"] { 
+            --bg-grad-1: #022c22; --bg-grad-2: #064e3b; --bg-grad-3: #065f46; 
+            --primary: #10b981; --secondary: #059669; 
+            --gold-light: #fef08a; --gold-main: #f59e0b; --gold-dark: #b45309; 
+            --text-main: #ecfdf5; --text-sub: #a7f3d0; 
+            --pitch-color: #022c22; --card-bg: rgba(2, 44, 34, 0.88); 
+            --glass-border: rgba(16, 185, 129, 0.35); --shadow-color: rgba(5, 150, 105, 0.4);
+        }
+
+        :root[data-theme="crimson-fire"] { 
+            --bg-grad-1: #2a0404; --bg-grad-2: #450a0a; --bg-grad-3: #7f1d1d; 
+            --primary: #ef4444; --secondary: #dc2626; 
+            --gold-light: #fef08a; --gold-main: #f59e0b; --gold-dark: #b45309; 
+            --text-main: #fef2f2; --text-sub: #fecaca; 
+            --pitch-color: #450a0a; --card-bg: rgba(42, 4, 4, 0.88); 
+            --glass-border: rgba(239, 68, 68, 0.35); --shadow-color: rgba(220, 38, 38, 0.4);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; -webkit-user-select: none; user-select: none; touch-action: manipulation; }
         
-        body { 
-            background: linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 50%, var(--bg-grad-3) 100%); 
-            color: var(--text-main); 
-            height: 100vh; 
-            overflow: hidden; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-        }
+        body { background: linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 50%, var(--bg-grad-3) 100%); color: var(--text-main); height: 100vh; overflow: hidden; display: flex; justify-content: center; align-items: center; transition: background 0.5s ease; }
 
         .screen { display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px; overflow-y: auto; position: relative;}
         .screen.active { display: flex; }
 
-        .glass-panel { 
-            background: var(--card-bg); 
-            backdrop-filter: blur(16px); 
-            -webkit-backdrop-filter: blur(16px); 
-            border: 2px solid var(--glass-border); 
-            border-radius: 24px; 
-            padding: 30px; 
-            text-align: center; 
-            box-shadow: 0 16px 40px var(--shadow-color), 0 2px 10px rgba(0,0,0,0.5); 
-            max-width: 450px; 
-            width: 100%; 
-            margin: auto; 
-        }
+        .glass-panel { background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 2px solid var(--glass-border); border-radius: 24px; padding: 30px; text-align: center; box-shadow: 0 16px 40px var(--shadow-color), 0 2px 10px rgba(0,0,0,0.5); max-width: 460px; width: 100%; margin: auto; transition: all 0.5s ease;}
 
-        h1, h2 { 
-            background: linear-gradient(135deg, #ffffff, var(--primary)); 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            font-weight: 900; 
-            text-transform: uppercase; 
-            letter-spacing: -0.5px;
-        }
-        h1 { font-size: 2.3rem; margin-bottom: 10px; } 
-        h2 { font-size: 1.5rem; margin-bottom: 20px; }
+        h1, h2 { background: linear-gradient(135deg, #ffffff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; text-transform: uppercase; letter-spacing: -0.5px; transition: all 0.5s ease;}
+        h1 { font-size: 2.2rem; margin-bottom: 8px; } 
+        h2 { font-size: 1.4rem; margin-bottom: 16px; }
 
-        button { 
-            width: 100%; 
-            padding: 16px; 
-            margin-bottom: 12px; 
-            border: none; 
-            border-radius: 14px; 
-            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
-            color: #ffffff; 
-            font-weight: 800; 
-            font-size: 1rem; 
-            cursor: pointer; 
-            transition: transform 0.2s, box-shadow 0.2s; 
-            box-shadow: 0 8px 20px rgba(2, 132, 199, 0.4); 
-            outline: none; 
-        }
+        button { width: 100%; padding: 15px; margin-bottom: 12px; border: none; border-radius: 14px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #ffffff; font-weight: 800; font-size: 0.95rem; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 8px 20px var(--shadow-color); outline: none; }
         button:active { transform: scale(0.96); }
-        
-        button.secondary { 
-            background: rgba(15, 41, 66, 0.8); 
-            color: var(--text-main); 
-            border: 2px solid rgba(56, 189, 248, 0.4); 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2); 
-        }
+        button.secondary { background: rgba(15, 41, 66, 0.4); color: var(--text-main); border: 2px solid var(--glass-border); box-shadow: 0 4px 12px rgba(0,0,0,0.2); backdrop-filter: blur(4px); }
         
         .btn-half { width: 48%; display: inline-block; margin-bottom: 0; }
         .btn-red { background: linear-gradient(135deg, #ef4444, #dc2626); box-shadow: 0 8px 20px rgba(239, 68, 68, 0.4); }
 
-        /* Saha */
-        #game-pitch { 
-            width: 100%; 
-            max-width: 450px; 
-            height: 75vh; 
-            background: linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px), var(--pitch-color); 
-            background-size: 33.3% 20%; 
-            border: 3px solid #38bdf8; 
-            border-radius: 20px; 
-            position: relative; 
-            box-shadow: 0 12px 35px rgba(5, 150, 105, 0.4), inset 0 0 40px rgba(0,0,0,0.3); 
-            margin-top: 10px; 
-            flex-shrink: 0; 
-        }
+        #game-pitch { width: 100%; max-width: 450px; height: 75vh; background: linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px), var(--pitch-color); background-size: 33.3% 20%; border: 3px solid var(--primary); border-radius: 20px; position: relative; box-shadow: 0 12px 35px var(--shadow-color), inset 0 0 40px rgba(0,0,0,0.4); margin-top: 10px; flex-shrink: 0; transition: all 0.5s ease;}
         .pitch-line-center { position: absolute; top: 50%; left: 0; width: 100%; height: 2px; background: rgba(255,255,255,0.75); }
-        .pitch-circle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90px; height: 90px; border: 2px solid rgba(255,255,255,0.75); border-radius: 50%; }
+        .pitch-circle { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85px; height: 85px; border: 2px solid rgba(255,255,255,0.75); border-radius: 50%; }
 
-        .exit-btn {
-            position: absolute; top: 15px; right: 15px; width: 45px; height: 45px; border-radius: 14px;
-            background: #0f2942; border: 2px solid #ef4444; color: #ef4444;
-            display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 900;
-            cursor: pointer; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3); z-index: 50; transition: transform 0.2s;
-        }
+        .exit-btn { position: absolute; top: 12px; right: 12px; width: 42px; height: 42px; border-radius: 14px; background: var(--bg-grad-2); border: 2px solid #ef4444; color: #ef4444; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 900; cursor: pointer; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3); z-index: 50; transition: transform 0.2s; }
+        .exit-btn:active { transform: scale(0.9); background: #ef4444; color: white; }
 
-        .overlay-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(7, 25, 39, 0.92); backdrop-filter: blur(14px); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; }
+        .overlay-modal { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.88); backdrop-filter: blur(14px); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; padding: 15px; }
 
         /* Saha İçi Slotlar */
-        .player-slot { 
-            width: 72px; height: 98px; 
-            background: rgba(12, 42, 66, 0.85); 
-            border: 2px dashed #38bdf8; 
-            border-radius: 14px; 
-            position: absolute; 
-            transform: translate(-50%, -50%); 
-            display: flex; flex-direction: column; align-items: center; justify-content: flex-end; 
-            cursor: pointer; transition: all 0.3s; padding-bottom: 4px; z-index: 10; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-        }
-        .player-slot.filled { 
-            border: 2px solid #f59e0b; 
-            background: linear-gradient(to top, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8)); 
-            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
-        }
+        .player-slot { width: 70px; height: 95px; background: var(--card-bg); border: 2px dashed var(--primary); border-radius: 14px; position: absolute; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; justify-content: flex-end; cursor: pointer; transition: all 0.3s; padding-bottom: 4px; z-index: 10; box-shadow: 0 4px 12px rgba(0,0,0,0.4); overflow: hidden; }
+        .player-slot.filled { border: 2px solid #f59e0b; background: linear-gradient(to top, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.8)); box-shadow: 0 0 15px rgba(245, 158, 11, 0.5); }
         
-        .shield-clip { 
-            clip-path: polygon(12% 0, 88% 0, 100% 18%, 100% 82%, 50% 100%, 0 82%, 0 18%); 
-            object-fit: cover; 
-            object-position: center 12%; 
-            background: linear-gradient(135deg, #fef08a, #f59e0b);
-            border-radius: 4px;
-        }
-        .slot-img { position: absolute; top: -8px; width: 60px; height: 60px; display: none; border: none; }
+        .shield-clip { clip-path: polygon(12% 0, 88% 0, 100% 18%, 100% 82%, 50% 100%, 0 82%, 0 18%); object-fit: cover; object-position: center 12%; background: linear-gradient(135deg, #fef08a, #f59e0b); border-radius: 4px; }
+        .slot-img { position: absolute; top: -5px; width: 60px; height: 60px; display: none; border: none; z-index: 5; }
         .player-slot.filled .slot-img { display: block; }
+
+        /* TAKIM LOGOSU WATERMARK (SOLUK AMA BELİRGİN LOGO ARKA PLAN) */
+        .slot-team-logo-bg { position: absolute; top: 38px; left: 50%; transform: translateX(-50%); width: 36px; height: 36px; object-fit: contain; opacity: 0.45; z-index: 8; pointer-events: none; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.6)); }
         
-        .slot-pos { position: absolute; top: 3px; left: 5px; font-size: 0.65rem; font-weight: 900; color: #38bdf8; z-index: 2; }
+        .slot-pos { position: absolute; top: 3px; left: 5px; font-size: 0.65rem; font-weight: 900; color: var(--primary); z-index: 15; }
         .player-slot.filled .slot-pos { color: #fef08a; text-shadow: 0 1px 2px black; }
-        .slot-rating { font-size: 1.15rem; font-weight: 900; color: #fef08a; z-index: 2; text-shadow: 0 2px 4px rgba(0,0,0,0.9); margin-top: 38px;}
-        .slot-name { font-size: 0.55rem; font-weight: 800; color: #e0f2fe; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 95%; text-align: center; z-index: 2;}
+        .slot-rating { font-size: 1.15rem; font-weight: 900; color: #fef08a; z-index: 15; text-shadow: 0 2px 5px rgba(0,0,0,1), 0 0 2px black; margin-top: 34px; position: relative;}
+        .slot-name { font-size: 0.55rem; font-weight: 800; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 95%; text-align: center; z-index: 15; position: relative;}
         .player-slot.filled .slot-name { color: #ffffff; text-shadow: 0 1px 2px black; }
 
         /* Draft Kart Alanı */
         #draft-modal { z-index: 100; }
-        .draft-cards { display: flex; gap: 12px; justify-content: center; align-items: center; min-height: 235px; padding: 20px; perspective: 1200px; width: 100%; }
+        .draft-cards { display: flex; gap: 10px; justify-content: center; align-items: center; min-height: 235px; padding: 15px 5px; perspective: 1200px; width: 100%; max-width: 440px; }
         
-        /* 3D Kart Yapısı */
-        .draft-card { 
-            width: 118px; height: 192px; cursor: pointer; position: relative; 
-            transition: transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s ease, margin 0.8s ease, width 0.8s ease; 
-        }
-        
-        .draft-card.unselected { 
-            opacity: 0; 
-            transform: scale(0) !important; 
-            pointer-events: none; 
-            width: 0 !important; 
-            margin: 0 -10px !important; 
-            overflow: hidden; 
-        }
+        .draft-card { width: 115px; height: 190px; cursor: pointer; position: relative; transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.7s ease, margin 0.7s ease, width 0.7s ease; }
+        .draft-card.unselected { opacity: 0; transform: scale(0) !important; pointer-events: none; width: 0 !important; margin: 0 -10px !important; overflow: hidden; }
+        .draft-card.selected-active { transform: scale(1.3) !important; z-index: 20; }
 
-        .draft-card.selected-active { 
-            transform: scale(1.35) !important; 
-            z-index: 20; 
-        }
-
-        /* SAKİN VE DÜZENLİ DÖNÜŞ (2.2 saniye) */
-        .card-inner { 
-            width: 100%; height: 100%; 
-            transition: transform 2.2s cubic-bezier(0.2, 0.8, 0.2, 1); 
-            transform-style: preserve-3d; 
-            position: relative; 
-        }
+        .card-inner { width: 100%; height: 100%; transition: transform 2.0s cubic-bezier(0.2, 0.8, 0.2, 1); transform-style: preserve-3d; position: relative; }
         .card-inner.flipped { transform: rotateY(900deg); }
         
-        .card-front, .card-back { 
-            position: absolute; width: 100%; height: 100%; 
-            backface-visibility: hidden; border-radius: 16px; 
-            display: flex; flex-direction: column; align-items: center; justify-content: space-between; 
-            padding: 6px; border: 2px solid #ffffff; overflow: hidden; 
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); 
-            transition: box-shadow 0.6s ease, border-color 0.6s ease;
-        }
+        .card-front, .card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 6px; border: 2px solid #ffffff; overflow: hidden; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5); transition: box-shadow 0.6s ease, border-color 0.6s ease; }
         
-        .card-front { 
-            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-main) 50%, var(--gold-dark) 100%); 
-            border-color: #ffffff; 
-            justify-content: center; 
-        }
-        .card-front .q-mark { font-size: 3.8rem; font-weight: 900; color: #ffffff; text-shadow: 0 4px 12px rgba(180, 83, 9, 0.5); }
+        .card-front { background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-main) 50%, var(--gold-dark) 100%); border-color: #ffffff; justify-content: center; }
+        .card-front .q-mark { font-size: 3.6rem; font-weight: 900; color: #ffffff; text-shadow: 0 4px 12px rgba(180, 83, 9, 0.5); }
 
-        .card-back { 
-            background: linear-gradient(135deg, #fffbeb 0%, #fef08a 35%, #f59e0b 75%, #b45309 100%); 
-            transform: rotateY(180deg); 
-            border-color: #ffffff;
-            padding-bottom: 6px;
-        }
-        .card-back img.shield-clip { 
-            width: 62px; height: 62px; margin-top: 8px; 
-            border: 2px solid rgba(255,255,255,0.85);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-        .card-back .rating { position: absolute; top: 4px; left: 6px; font-size: 1.3rem; font-weight: 900; color: #78350f; text-shadow: 0 1px 1px rgba(255,255,255,0.6); }
-        .card-back .pos { position: absolute; top: 6px; right: 6px; font-size: 0.75rem; font-weight: 800; color: #92400e; }
-        .card-back .name { font-size: 0.64rem; text-align: center; font-weight: 900; color: #451a03; margin-top: 1px; width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+        .card-back { background: linear-gradient(135deg, #fffbeb 0%, #fef08a 35%, #f59e0b 75%, #b45309 100%); transform: rotateY(180deg); border-color: #ffffff; padding-bottom: 6px; position: relative;}
         
-        /* GERÇEK LOGO KAPSAYICISI */
-        .card-back .team-container { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 2px; }
+        .card-back .rating { position: absolute; top: 4px; left: 6px; font-size: 1.25rem; font-weight: 900; color: #78350f; text-shadow: 0 1px 1px rgba(255,255,255,0.6); z-index: 10; }
+        .card-back .pos { position: absolute; top: 6px; right: 6px; font-size: 0.72rem; font-weight: 800; color: #92400e; z-index: 10; }
+        
+        .card-back img.shield-clip { width: 62px; height: 62px; margin-top: 14px; border: 2px solid rgba(255,255,255,0.85); box-shadow: 0 4px 10px rgba(0,0,0,0.3); z-index: 5; position: relative;}
+        
+        .card-back .name { font-size: 0.62rem; text-align: center; font-weight: 900; color: #451a03; margin-top: 1px; width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; z-index: 10;}
+        
+        .card-back .team-container { display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 2px; z-index: 10; }
         .card-back .team-logo { width: 24px; height: 24px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4)); }
-        .card-back .team-info { font-size: 0.48rem; text-align: center; color: #78350f; font-weight: 800; text-transform: uppercase; margin-top: 1px;}
+        .card-back .team-info { font-size: 0.46rem; text-align: center; color: #78350f; font-weight: 800; text-transform: uppercase; margin-top: 1px;}
 
-        .card-back > * { opacity: 0; filter: blur(6px); transition: opacity 0.9s ease-out 0.8s, filter 0.9s ease-out 0.8s; }
+        .card-back > * { opacity: 0; filter: blur(6px); transition: opacity 0.8s ease-out 0.7s, filter 0.8s ease-out 0.7s; }
         .card-inner.flipped .card-back > * { opacity: 1; filter: blur(0); }
         .card-inner.pre-revealed .card-back > * { opacity: 1; filter: blur(0); transition: none; }
 
-        .draft-card.glow-green .card-back { 
-            border-color: #10b981 !important; 
-            box-shadow: 0 0 35px #10b981, 0 0 70px rgba(16, 185, 129, 0.8) !important; 
-        }
+        .draft-card.glow-green .card-back { border-color: #10b981 !important; box-shadow: 0 0 35px #10b981, 0 0 70px rgba(16, 185, 129, 0.8) !important; }
+        .draft-card.glow-red .card-back { border-color: #ef4444 !important; box-shadow: 0 0 35px #ef4444, 0 0 70px rgba(239, 68, 68, 0.8) !important; }
 
-        .draft-card.glow-red .card-back { 
-            border-color: #ef4444 !important; 
-            box-shadow: 0 0 35px #ef4444, 0 0 70px rgba(239, 68, 68, 0.8) !important; 
-        }
+        #draft-feedback { font-size: 1.2rem; font-weight: 900; margin-top: 12px; height: 32px; text-transform: uppercase; text-align: center;}
+        #draft-confirm-btn { display: none; width: 80%; max-width: 280px; margin-top: 15px; }
 
-        #draft-feedback { font-size: 1.3rem; font-weight: 900; margin-top: 15px; height: 35px; text-transform: uppercase; text-align: center;}
-        #draft-confirm-btn { display: none; width: 80%; max-width: 300px; margin-top: 20px; }
-
-        .list-container { max-height: 400px; overflow-y: auto; width: 100%; text-align: left; scrollbar-width: none; }
+        .list-container { max-height: 380px; overflow-y: auto; width: 100%; text-align: left; scrollbar-width: none; }
         .list-container::-webkit-scrollbar { display: none; }
-        .settings-row { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid rgba(56, 189, 248, 0.2); font-size: 1rem; font-weight: 600; color: var(--text-main);}
-        select { background: #0f2942; color: var(--text-main); padding: 8px; border-radius: 10px; border: 2px solid #38bdf8; outline: none; font-weight: bold;}
+        .settings-row { display: flex; justify-content: space-between; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--glass-border); font-size: 0.95rem; font-weight: 600; color: var(--text-main);}
+        select { background: rgba(0,0,0,0.3); color: var(--text-main); padding: 8px; border-radius: 10px; border: 2px solid var(--primary); outline: none; font-weight: bold;}
         
         .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
         .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #1e3a8a; transition: .4s; border-radius: 34px; }
-        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
-        input:checked + .slider { background-color: #38bdf8; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.4); transition: .4s; border-radius: 34px; border: 1px solid var(--glass-border); }
+        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--primary); border-color: var(--primary); }
         input:checked + .slider:before { transform: translateX(24px); }
 
-        .history-item { background: rgba(15, 41, 66, 0.9); padding: 12px 18px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-size:0.95rem; border: 1px solid rgba(56, 189, 248, 0.25); color: var(--text-main);}
-        .credit { font-size: 0.85rem; color: #38bdf8; font-weight: 900; margin-top: 20px; text-transform: uppercase; letter-spacing: 2px; text-align: center;}
+        .history-item { background: rgba(0, 0, 0, 0.3); padding: 12px 18px; border-radius: 12px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; font-size:0.92rem; border: 1px solid var(--glass-border); color: var(--text-main);}
+        .credit { font-size: 0.8rem; color: var(--primary); font-weight: 900; margin-top: 18px; text-transform: uppercase; letter-spacing: 2px; text-align: center;}
     </style>
 </head>
 <body>
@@ -258,11 +152,11 @@
     <div id="screen-main" class="screen active" style="justify-content: center;">
         <div class="glass-panel">
             <h1>ULTIMATE DRAFT</h1>
-            <p style="color: var(--text-sub); margin-bottom: 20px; font-weight: 600;">EA FC 27 Güncel Kadroları & Kesin Takım Logoları!</p>
-            <button onclick="goToFormation()">YENİ OYUN</button>
-            <button class="secondary" onclick="showScreen('screen-history')">SKOR GEÇMİŞİ</button>
-            <button class="secondary" onclick="showScreen('screen-settings')">AYARLAR & TEMALAR</button>
-            <button class="secondary" onclick="showScreen('screen-how-to')">NASIL OYNANIR?</button>
+            <p style="color: var(--text-sub); margin-bottom: 20px; font-weight: 600;">Güncellenmiş Kadrolar & Yüksek Çözünürlüklü Logolar</p>
+            <button onclick="goToFormation()"><i class="fa-solid fa-play" style="margin-right:8px;"></i> YENİ OYUN</button>
+            <button class="secondary" onclick="showScreen('screen-history')"><i class="fa-solid fa-trophy"></i> SKOR GEÇMİŞİ</button>
+            <button class="secondary" onclick="showScreen('screen-settings')"><i class="fa-solid fa-sliders"></i> AYARLAR & TEMALAR</button>
+            <button class="secondary" onclick="showScreen('screen-how-to')"><i class="fa-solid fa-circle-info"></i> NASIL OYNANIR?</button>
             <div class="credit">PRODUCT BY IBBAYHAN</div>
         </div>
     </div>
@@ -271,12 +165,12 @@
     <div id="screen-how-to" class="screen" style="justify-content: center;">
         <div class="glass-panel">
             <h2>Nasıl Oynanır?</h2>
-            <div class="list-container" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-sub);">
+            <div class="list-container" style="font-size: 0.88rem; line-height: 1.6; color: var(--text-sub);">
                 <p>1. 20 farklı detaylı dizilişten birini seç.</p>
-                <p>2. Boş bir mevkiye tıkla. (Stoperse sadece stoper gelir! Mevkiler karışmaz.)</p>
-                <p>3. <b>RİSK AL:</b> 3 kart çıkar, sadece 1'i açıktır. Kapalıyı seçtiğinde tüm kartlar sakin ve yavaşça açılır, inceledikten sonra seçtiğin kart odaklanıp büyür!</p>
-                <p>4. Tüm takımların resmî logoları kart üzerinde canlı olarak yer alır.</p>
-                <p>5. Reytingler EA FC 27 güncellemesine birebir uyarlıdır.</p>
+                <p>2. Boş bir mevkiye tıklayarak 3 rastgele oyuncu çıkar.</p>
+                <p>3. <b>RİSK AL:</b> Sadece ilk kart açıktır. Kapalı kart seçtiğinde heyecanlı animasyonla tüm kartlar açılır!</p>
+                <p>4. <b>YENİ TEMALAR:</b> Ayarlar menüsünden 4 farklı görsel tema seçebilirsin.</p>
+                <p>5. Fenerbahçe, Beşiktaş ve Trabzonspor güncel logoları aktif!</p>
                 <div class="credit">PRODUCT BY IBBAYHAN</div>
             </div>
             <button class="secondary" style="margin-top: 15px;" onclick="showScreen('screen-main')">Geri Dön</button>
@@ -286,9 +180,9 @@
     <!-- AYARLAR -->
     <div id="screen-settings" class="screen" style="justify-content: center;">
         <div class="glass-panel" style="max-width: 450px;">
-            <h2>Ayarlar</h2>
+            <h2>Ayarlar & Temalar</h2>
             <div class="settings-row">
-                <span>Dokunma Sesleri (SFX)</span>
+                <span>Dokunma Sesleri</span>
                 <label class="switch"><input type="checkbox" id="setting-sfx" checked onchange="toggleSetting('sfx')"><span class="slider"></span></label>
             </div>
             <div class="settings-row">
@@ -298,12 +192,15 @@
             <div class="settings-row">
                 <span>Oyun Teması</span>
                 <select id="theme-select" onchange="changeTheme(this.value)">
-                    <option value="champions-dark-blue">Gece Lacivert & Açık Mavi</option>
+                    <option value="champions-dark-blue">🌌 Gece Lacivert (Klasik)</option>
+                    <option value="neon-cyber">⚡ Neon Siber</option>
+                    <option value="emerald-pitch">🌿 Zümrüt Saha</option>
+                    <option value="crimson-fire">🔥 Kızıl Ateş</option>
                 </select>
             </div>
             <div class="settings-row" style="border:none;">
                 <span>Geçmişi Temizle</span>
-                <button class="secondary" style="width: auto; padding: 6px 16px; margin: 0; color:#ef4444; border-color:#ef4444;" onclick="clearHistory()">Sil</button>
+                <button class="secondary" style="width: auto; padding: 6px 16px; margin: 0; color:#ef4444; border-color:#ef4444;" onclick="openConfirmClearModal()">Sil</button>
             </div>
             <button class="secondary" style="margin-top: 25px;" onclick="showScreen('screen-main')">Geri Dön</button>
         </div>
@@ -331,10 +228,11 @@
     <div id="screen-game" class="screen">
         <div class="exit-btn" onclick="showExitModal()">✖</div>
         <h2 id="ingame-formation-name" style="margin-bottom: 5px; font-size: 1.3rem;">4-3-3</h2>
+
         <div id="game-pitch">
             <div class="pitch-line-center"></div><div class="pitch-circle"></div>
         </div>
-        <button id="finish-btn" style="display:none; position:absolute; bottom:20px; width:80%; max-width:300px; z-index:50;" onclick="finishGame()">Takımı Onayla!</button>
+        <button id="finish-btn" style="display:none; position:absolute; bottom:20px; width:80%; max-width:300px; z-index:50;" onclick="finishGame()">TAKIMI ONAYLA!</button>
         
         <!-- Çıkış Modalı -->
         <div id="exit-modal" class="overlay-modal">
@@ -348,10 +246,22 @@
             </div>
         </div>
 
+        <!-- Geçmişi Sil Onay Modalı -->
+        <div id="confirm-clear-modal" class="overlay-modal">
+            <div class="glass-panel" style="max-width: 350px;">
+                <h2 style="color:#ef4444; font-size: 1.3rem;">Skorları Sil</h2>
+                <p style="color:var(--text-sub); margin-bottom: 25px;">Tüm skor geçmişiniz silinecektir. Devam edilsin mi?</p>
+                <div style="display:flex; justify-content: space-between;">
+                    <button class="btn-half secondary" onclick="closeConfirmClearModal()">İPTAL</button>
+                    <button class="btn-half btn-red" onclick="confirmClearHistory()">SİL</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Draft Modalı -->
         <div id="draft-modal" class="overlay-modal">
-            <h2 style="color: white; margin-bottom: 5px; text-shadow: 0 2px 8px rgba(0,0,0,0.5);">Kartını Seç</h2>
-            <p style="color: #fef08a; font-weight:bold; font-size:0.85rem; margin-bottom: 15px;">Garanti açık kart mı, büyük risk mi?</p>
+            <h2 style="color: white; margin-bottom: 3px; text-shadow: 0 2px 8px rgba(0,0,0,0.5);">Kartını Seç</h2>
+            <p style="color: #fef08a; font-weight:bold; font-size:0.85rem; margin-bottom: 10px;">Açık kart garantisi mi, kapalı sürpriz mi?</p>
             <div id="draft-options" class="draft-cards"></div>
             <div id="draft-feedback"></div>
             <button id="draft-confirm-btn" onclick="confirmCardSelection()">TAKIMA EKLE</button>
@@ -363,45 +273,55 @@
         <div class="glass-panel">
             <h2>DRAFT TAMAMLANDI!</h2>
             <p style="margin-top: 15px; margin-bottom: 5px; color:var(--text-sub); font-weight:600;">Takım Ortalaması:</p>
-            <div id="final-avg" style="font-size: 4.8rem; font-weight: 900; color: #f59e0b; text-shadow: 0 4px 20px rgba(245, 158, 11, 0.4);">85</div>
+            <div id="final-avg" style="font-size: 4.8rem; font-weight: 900; color: #f59e0b; text-shadow: 0 4px 20px rgba(245, 158, 11, 0.4); line-height: 1;">85</div>
+            
             <button onclick="showScreen('screen-main')" style="margin-top:25px;">Ana Menüye Dön</button>
             <button class="secondary" onclick="goToFormation()">Tekrar Oyna</button>
         </div>
     </div>
 
     <script>
-        // --- 20 TAKIMIN BİREBİR KESİN VE GARANTİLİ LOGO HARİTASI ---
+        // FALLBACK SVG HEADSHOT AVATAR
+        const fallbackFaceAvatar = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2378350f'><rect width='100' height='100' fill='%23fef08a'/><path d='M50 20 a18 18 0 1 0 0 36 a18 18 0 1 0 0 -36 M22 88 a28 28 0 0 1 56 0 Z' fill='%23b45309'/></svg>";
+
+        // TEMA YÜKLEME SİSTEMİ
+        const savedTheme = localStorage.getItem('draftTheme') || 'champions-dark-blue';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        document.addEventListener("DOMContentLoaded", () => { 
+            const themeSel = document.getElementById('theme-select');
+            if(themeSel) themeSel.value = savedTheme; 
+        });
+
+        // GÜNCELLENMİŞ FOOTBALL-LOGOS.CC LOGOLARI & ESPN LOGOLARI
         const teamLogos = {
-            "BAYERN MÜNİH": "https://upload.wikimedia.org/wikipedia/commons/1/1b/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg",
-            "BORUSSIA DORTMUND": "https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg",
-            "PSG": "https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg",
-            "REAL MADRID": "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg",
-            "BARCELONA": "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona.svg",
-            "ATLÉTICO MADRID": "https://upload.wikimedia.org/wikipedia/en/c/c1/Atletico_Madrid_logo.svg",
-            "INTER MILAN": "https://upload.wikimedia.org/wikipedia/commons/0/05/FC_Internazionale_Milano_2021.svg",
-            "AS ROMA": "https://upload.wikimedia.org/wikipedia/en/f/f7/AS_Roma_logo_%282017%29.svg",
-            "AC MILAN": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg",
-            "JUVENTUS": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Juventus_FC_2017_icon_%28black%29.svg",
-            "NAPOLI": "https://upload.wikimedia.org/wikipedia/commons/2/28/SSC_Napoli_2024.svg",
-            "ARSENAL": "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg",
-            "MANCHESTER CITY": "https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg",
-            "LIVERPOOL": "https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg",
-            "CHELSEA": "https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg",
-            "MANCHESTER UNITED": "https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg",
-            "FENERBAHÇE": "https://upload.wikimedia.org/wikipedia/tr/8/86/Fenerbah%C3%A7e_SK.svg",
-            "BEŞİKTAŞ": "https://upload.wikimedia.org/wikipedia/commons/2/20/Besiktas_JK_logo.svg",
-            "GALATASARAY": "https://upload.wikimedia.org/wikipedia/commons/3/37/Galatasaray_Star_Logo.svg",
-            "TRABZONSPOR": "https://upload.wikimedia.org/wikipedia/tr/a/ab/Trabzonspor_Amblemi.svg"
+            "ARSENAL": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png",
+            "MANCHESTER CITY": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png",
+            "LIVERPOOL": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png",
+            "CHELSEA": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png",
+            "MANCHESTER UNITED": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png",
+            "REAL MADRID": "https://a.espncdn.com/i/teamlogos/soccer/500/86.png",
+            "BARCELONA": "https://a.espncdn.com/i/teamlogos/soccer/500/83.png",
+            "ATLÉTICO MADRID": "https://a.espncdn.com/i/teamlogos/soccer/500/1068.png",
+            "BAYERN MÜNİH": "https://a.espncdn.com/i/teamlogos/soccer/500/132.png",
+            "BORUSSIA DORTMUND": "https://a.espncdn.com/i/teamlogos/soccer/500/124.png",
+            "PSG": "https://a.espncdn.com/i/teamlogos/soccer/500/160.png",
+            "INTER MILAN": "https://a.espncdn.com/i/teamlogos/soccer/500/110.png",
+            "AC MILAN": "https://a.espncdn.com/i/teamlogos/soccer/500/103.png",
+            "JUVENTUS": "https://a.espncdn.com/i/teamlogos/soccer/500/111.png",
+            "NAPOLI": "https://a.espncdn.com/i/teamlogos/soccer/500/114.png",
+            "AS ROMA": "https://a.espncdn.com/i/teamlogos/soccer/500/104.png",
+            "GALATASARAY": "https://a.espncdn.com/i/teamlogos/soccer/500/432.png",
+            "FENERBAHÇE": "https://assets.football-logos.cc/logos/turkey/512x512/fenerbahce.ad038cac.png",
+            "BEŞİKTAŞ": "https://assets.football-logos.cc/logos/turkey/512x512/besiktas.0ec1a299.png",
+            "TRABZONSPOR": "https://assets.football-logos.cc/logos/turkey/512x512/trabzonspor.32812ba8.png"
         };
 
-        const posMap = {"KL":"GK", "STP":"CB", "SLB":"LB", "SĞB":"RB", "DOS":"CDM", "MO":"CM", "OOS":"CAM", "SĞK":"RW", "SLK":"LW", "SNT":"ST"};
         const posGroups = { 
             "ST": ["ST"], "LW": ["LW", "LM"], "RW": ["RW", "RM"], "CAM": ["CAM"], 
             "CM": ["CM"], "CDM": ["CDM"], "LB": ["LB", "LWB"], "RB": ["RB", "RWB"], 
             "CB": ["CB"], "GK": ["GK"] 
         };
 
-        // GÜNCEL KADRO VE REYTİNG VERİTABANI (EA FC 27)
         const rawPlayersList = [
             // BAYERN MÜNİH
             { name: "Harry Kane", rat: 90, pos: "ST", team: "BAYERN MÜNİH" },
@@ -479,7 +399,6 @@
             { name: "Kylian Mbappé", rat: 91, pos: "ST", team: "REAL MADRID" },
             { name: "Thibaut Courtois", rat: 90, pos: "GK", team: "REAL MADRID" },
             { name: "Jude Bellingham", rat: 90, pos: "CAM", team: "REAL MADRID" },
-            { name: "Arda Güler", rat: 90, pos: "CAM", team: "REAL MADRID" },
             { name: "Vinícius Júnior", rat: 89, pos: "LW", team: "REAL MADRID" },
             { name: "Federico Valverde", rat: 87, pos: "CM", team: "REAL MADRID" },
             { name: "Marc Cucurella", rat: 86, pos: "LB", team: "REAL MADRID" },
@@ -491,6 +410,7 @@
             { name: "Bernardo Silva", rat: 84, pos: "CAM", team: "REAL MADRID" },
             { name: "Denzel Dumfries", rat: 83, pos: "RB", team: "REAL MADRID" },
             { name: "Antonio Rüdiger", rat: 83, pos: "CB", team: "REAL MADRID" },
+            { name: "Arda Güler", rat: 90, pos: "CAM", team: "REAL MADRID" },
             { name: "Eduardo Camavinga", rat: 81, pos: "CM", team: "REAL MADRID" },
             { name: "Álvaro Carreras", rat: 81, pos: "LB", team: "REAL MADRID" },
             { name: "Dean Huijsen", rat: 81, pos: "CB", team: "REAL MADRID" },
@@ -519,11 +439,11 @@
             { name: "Alejandro Balde", rat: 82, pos: "LB", team: "BARCELONA" },
             { name: "Karim Adeyemi", rat: 82, pos: "LW", team: "BARCELONA" },
             { name: "Wojciech Szczęsny", rat: 81, pos: "GK", team: "BARCELONA" },
-            { name: "Gabriel Jesus", rat: 79, pos: "ST", team: "BARCELONA" },
             { name: "Gerard Martín", rat: 79, pos: "LB", team: "BARCELONA" },
             { name: "Andreas Christensen", rat: 79, pos: "CB", team: "BARCELONA" },
             { name: "Marc Bernal", rat: 78, pos: "CDM", team: "BARCELONA" },
             { name: "Marc Casadó", rat: 78, pos: "CDM", team: "BARCELONA" },
+            { name: "Gabriel Jesus", rat: 79, pos: "ST", team: "BARCELONA" },
 
             // ATLÉTICO MADRID
             { name: "Jan Oblak", rat: 88, pos: "GK", team: "ATLÉTICO MADRID" },
@@ -818,6 +738,7 @@
             { name: "Leandro Trossard", rat: 82, pos: "LW", team: "BEŞİKTAŞ" },
             { name: "Dušan Vlahović", rat: 81, pos: "ST", team: "BEŞİKTAŞ" },
             { name: "Alexander Nübel", rat: 80, pos: "GK", team: "BEŞİKTAŞ" },
+            { name: "Fabio Miretti", rat: 78, pos: "CM", team: "BEŞİKTAŞ" },
             { name: "Emmanuel Agbadou", rat: 77, pos: "CB", team: "BEŞİKTAŞ" },
             { name: "Václav Černý", rat: 77, pos: "RW", team: "BEŞİKTAŞ" },
             { name: "Wilfred Ndidi", rat: 75, pos: "CDM", team: "BEŞİKTAŞ" },
@@ -883,9 +804,7 @@
         ];
 
         const playersData = rawPlayersList.map(p => ({
-            ...p,
-            wiki: p.name.replace(/ /g, '_'),
-            logoUrl: teamLogos[p.team] || ""
+            ...p, logoUrl: teamLogos[p.team] || ""
         }));
 
         const formationsList = [
@@ -896,19 +815,7 @@
             { name: "4-4-2 (Elmas)", pos: [ {p:"GK",t:88,l:50}, {p:"LB",t:70,l:15}, {p:"CB",t:72,l:35}, {p:"CB",t:72,l:65}, {p:"RB",t:70,l:85}, {p:"CDM",t:55,l:50}, {p:"CM",t:45,l:25}, {p:"CM",t:45,l:75}, {p:"CAM",t:30,l:50}, {p:"ST",t:12,l:35}, {p:"ST",t:12,l:65} ]},
             { name: "4-2-3-1 (Geniş)", pos: [ {p:"GK",t:88,l:50}, {p:"LB",t:70,l:15}, {p:"CB",t:72,l:35}, {p:"CB",t:72,l:65}, {p:"RB",t:70,l:85}, {p:"CDM",t:55,l:35}, {p:"CDM",t:55,l:65}, {p:"LW",t:30,l:20}, {p:"CAM",t:32,l:50}, {p:"RW",t:30,l:80}, {p:"ST",t:10,l:50} ]},
             { name: "4-2-3-1 (Dar)", pos: [ {p:"GK",t:88,l:50}, {p:"LB",t:70,l:15}, {p:"CB",t:72,l:35}, {p:"CB",t:72,l:65}, {p:"RB",t:70,l:85}, {p:"CDM",t:55,l:35}, {p:"CDM",t:55,l:65}, {p:"CAM",t:32,l:25}, {p:"CAM",t:30,l:50}, {p:"CAM",t:32,l:75}, {p:"ST",t:10,l:50} ]},
-            { name: "3-5-2 (Klasik)", pos: [ {p:"GK",t:88,l:50}, {p:"CB",t:72,l:20}, {p:"CB",t:75,l:50}, {p:"CB",t:72,l:80}, {p:"CDM",t:55,l:35}, {p:"CDM",t:55,l:65}, {p:"LW",t:35,l:15}, {p:"CAM",t:35,l:50}, {p:"RW",t:35,l:85}, {p:"ST",t:12,l:35}, {p:"ST",t:12,l:65} ]},
-            { name: "3-4-3 (Düz)", pos: [ {p:"GK",t:88,l:50}, {p:"CB",t:72,l:20}, {p:"CB",t:75,l:50}, {p:"CB",t:72,l:80}, {p:"LW",t:45,l:15}, {p:"CM",t:48,l:35}, {p:"CM",t:48,l:65}, {p:"RW",t:45,l:85}, {p:"LW",t:15,l:20}, {p:"ST",t:10,l:50}, {p:"RW",t:15,l:80} ]},
-            { name: "5-3-2 (Defansif)", pos: [ {p:"GK",t:88,l:50}, {p:"LB",t:65,l:10}, {p:"CB",t:72,l:30}, {p:"CB",t:75,l:50}, {p:"CB",t:72,l:70}, {p:"RB",t:65,l:90}, {p:"CM",t:45,l:30}, {p:"CM",t:48,l:50}, {p:"CM",t:45,l:70}, {p:"ST",t:15,l:35}, {p:"ST",t:15,l:65} ]},
-            { name: "5-2-3 (Kanatlı)", pos: [ {p:"GK",t:88,l:50}, {p:"LB",t:65,l:10}, {p:"CB",t:72,l:30}, {p:"CB",t:75,l:50}, {p:"CB",t:72,l:70}, {p:"RB",t:65,l:90}, {p:"CM",t:45,l:35}, {p:"CM",t:45,l:65}, {p:"LW",t:15,l:20}, {p:"ST",t:10,l:50}, {p:"RW",t:15,l:80} ]},
-            { name: "4-1-4-1", pos: [ {p:"GK",t:88,l:50}, {p:"LB",t:70,l:15}, {p:"CB",t:72,l:35}, {p:"CB",t:72,l:65}, {p:"RB",t:70,l:85}, {p:"CDM",t:58,l:50}, {p:"LW",t:40,l:15}, {p:"CM",t:40,l:35}, {p:"CM",t:40,l:65}, {p:"RW",t:40,l:85}, {p:"ST",t:12,l:50} ]},
-            { name: "4-5-1 (Ofansif)", pos: [ {p:"GK",t:88,l:50}, {p:"LB",t:70,l:15}, {p:"CB",t:72,l:35}, {p:"CB",t:72,l:65}, {p:"RB",t:70,l:85}, {p:"CM",t:52,l:50}, {p:"LW",t:35,l:15}, {p:"CAM",t:32,l:35}, {p:"CAM",t:32,l:65}, {p:"RW",t:35,l:85}, {p:"ST",t:12,l:50} ]},
-            { name: "4-5-1 (Defansif)", pos: [ {p:"GK",t:88,l:50}, {p:"LB",t:70,l:15}, {p:"CB",t:72,l:35}, {p:"CB",t:72,l:65}, {p:"RB",t:70,l:85}, {p:"CDM",t:52,l:30}, {p:"CDM",t:55,l:50}, {p:"CDM",t:52,l:70}, {p:"LW",t:35,l:20}, {p:"RW",t:35,l:80}, {p:"ST",t:12,l:50} ]},
-            { name: "4-2-2-2", pos: [ {p:"GK",t:88,l:50}, {p:"LB",t:70,l:15}, {p:"CB",t:72,l:35}, {p:"CB",t:72,l:65}, {p:"RB",t:70,l:85}, {p:"CDM",t:50,l:35}, {p:"CDM",t:50,l:65}, {p:"CAM",t:30,l:25}, {p:"CAM",t:30,l:75}, {p:"ST",t:12,l:35}, {p:"ST",t:12,l:65} ]},
-            { name: "3-1-4-2", pos: [ {p:"GK",t:88,l:50}, {p:"CB",t:72,l:20}, {p:"CB",t:75,l:50}, {p:"CB",t:72,l:80}, {p:"CDM",t:60,l:50}, {p:"LW",t:40,l:15}, {p:"CM",t:42,l:35}, {p:"CM",t:42,l:65}, {p:"RW",t:40,l:85}, {p:"ST",t:12,l:35}, {p:"ST",t:12,l:65} ]},
-            { name: "5-4-1", pos: [ {p:"GK",t:88,l:50}, {p:"LB",t:65,l:10}, {p:"CB",t:72,l:30}, {p:"CB",t:75,l:50}, {p:"CB",t:72,l:70}, {p:"RB",t:65,l:90}, {p:"LW",t:40,l:20}, {p:"CM",t:42,l:40}, {p:"CM",t:42,l:60}, {p:"RW",t:40,l:80}, {p:"ST",t:15,l:50} ]},
-            { name: "4-3-2-1 (Çam)", pos: [ {p:"GK",t:88,l:50}, {p:"LB",t:70,l:15}, {p:"CB",t:72,l:35}, {p:"CB",t:72,l:65}, {p:"RB",t:70,l:85}, {p:"CM",t:50,l:25}, {p:"CM",t:52,l:50}, {p:"CM",t:50,l:75}, {p:"CAM",t:30,l:35}, {p:"CAM",t:30,l:65}, {p:"ST",t:10,l:50} ]},
-            { name: "3-4-2-1", pos: [ {p:"GK",t:88,l:50}, {p:"CB",t:72,l:20}, {p:"CB",t:75,l:50}, {p:"CB",t:72,l:80}, {p:"LW",t:45,l:15}, {p:"CM",t:48,l:35}, {p:"CM",t:48,l:65}, {p:"RW",t:45,l:85}, {p:"CAM",t:25,l:35}, {p:"CAM",t:25,l:65}, {p:"ST",t:10,l:50} ]},
-            { name: "4-1-2-1-2", pos: [ {p:"GK",t:88,l:50}, {p:"LB",t:70,l:15}, {p:"CB",t:72,l:35}, {p:"CB",t:72,l:65}, {p:"RB",t:70,l:85}, {p:"CDM",t:55,l:50}, {p:"LW",t:40,l:20}, {p:"RW",t:40,l:80}, {p:"CAM",t:30,l:50}, {p:"ST",t:12,l:35}, {p:"ST",t:12,l:65} ]}
+            { name: "3-5-2 (Klasik)", pos: [ {p:"GK",t:88,l:50}, {p:"CB",t:72,l:20}, {p:"CB",t:75,l:50}, {p:"CB",t:72,l:80}, {p:"CDM",t:55,l:35}, {p:"CDM",t:55,l:65}, {p:"LW",t:35,l:15}, {p:"CAM",t:35,l:50}, {p:"RW",t:35,l:85}, {p:"ST",t:12,l:35}, {p:"ST",t:12,l:65} ]}
         ];
 
         let currentSlots = [], activeSlotId = null, filledCount = 0;
@@ -916,181 +823,165 @@
         let draftOptions = [], modalState = 'pick', selectedIndex = -1;
         let audioCtx, bgMusicOscillators = [], isMusicPlaying = false;
 
-        function initFormations() {
+        function initFormations() { 
             const list = document.getElementById('formation-list');
-            formationsList.forEach(f => {
-                const btn = document.createElement('button');
-                btn.innerText = f.name; btn.onclick = () => startGame(f.name, f.pos); list.appendChild(btn);
-            });
+            if(!list) return;
+            list.innerHTML = '';
+            formationsList.forEach(f => { 
+                const btn = document.createElement('button'); 
+                btn.innerText = f.name; 
+                btn.onclick = () => startGame(f.name, f.pos); 
+                list.appendChild(btn); 
+            }); 
         }
         initFormations();
 
-        function initAudio() {
-            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            if (audioCtx.state === 'suspended') audioCtx.resume();
-        }
+        function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); if (audioCtx.state === 'suspended') audioCtx.resume(); }
 
         function playSound(type) {
-            if (!settings.sfx) return; initAudio();
-            const now = audioCtx.currentTime;
-
+            if (!settings.sfx) return; initAudio(); const now = audioCtx.currentTime;
             if (type === 'click') {
                 const osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(520, now); 
-                osc.frequency.exponentialRampToValueAtTime(260, now + 0.08);
-                gain.gain.setValueAtTime(0.12, now); 
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-                osc.connect(gain); gain.connect(audioCtx.destination);
-                osc.start(now); osc.stop(now + 0.08);
+                osc.type = 'sine'; osc.frequency.setValueAtTime(520, now); osc.frequency.exponentialRampToValueAtTime(260, now + 0.08);
+                gain.gain.setValueAtTime(0.12, now); gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+                osc.connect(gain); gain.connect(audioCtx.destination); osc.start(now); osc.stop(now + 0.08);
             } else if (type === 'flip') {
                 const osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
-                osc.type = 'sine'; 
-                osc.frequency.setValueAtTime(240, now); 
-                osc.frequency.exponentialRampToValueAtTime(520, now + 1.8); 
-                gain.gain.setValueAtTime(0.08, now); 
-                gain.gain.linearRampToValueAtTime(0.001, now + 2.0);
-                osc.connect(gain); gain.connect(audioCtx.destination);
-                osc.start(now); osc.stop(now + 2.0);
+                osc.type = 'sine'; osc.frequency.setValueAtTime(240, now); osc.frequency.exponentialRampToValueAtTime(520, now + 1.8); 
+                gain.gain.setValueAtTime(0.08, now); gain.gain.linearRampToValueAtTime(0.001, now + 2.0);
+                osc.connect(gain); gain.connect(audioCtx.destination); osc.start(now); osc.stop(now + 2.0);
             } else if (type === 'bad') {
                 const notes = [311.13, 246.94];
                 notes.forEach((freq, idx) => {
                     const osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(freq, now + idx * 0.14);
-                    gain.gain.setValueAtTime(0.001, now + idx * 0.14);
-                    gain.gain.exponentialRampToValueAtTime(0.12, now + idx * 0.14 + 0.02);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.14 + 0.38);
-                    osc.connect(gain); gain.connect(audioCtx.destination);
-                    osc.start(now + idx * 0.14); osc.stop(now + idx * 0.14 + 0.4);
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(freq, now + idx * 0.14);
+                    gain.gain.setValueAtTime(0.001, now + idx * 0.14); gain.gain.exponentialRampToValueAtTime(0.12, now + idx * 0.14 + 0.02); gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.14 + 0.38);
+                    osc.connect(gain); gain.connect(audioCtx.destination); osc.start(now + idx * 0.14); osc.stop(now + idx * 0.14 + 0.4);
                 });
             } else if (type === 'success') {
                 const notes = [523.25, 659.25, 783.99, 1046.50];
                 notes.forEach((freq, idx) => {
                     const osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(freq, now + idx * 0.07);
-                    gain.gain.setValueAtTime(0.001, now + idx * 0.07);
-                    gain.gain.exponentialRampToValueAtTime(0.14, now + idx * 0.07 + 0.03);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.65);
-                    osc.connect(gain); gain.connect(audioCtx.destination);
-                    osc.start(now + idx * 0.07); osc.stop(now + idx * 0.07 + 0.7);
+                    osc.type = 'sine'; osc.frequency.setValueAtTime(freq, now + idx * 0.07);
+                    gain.gain.setValueAtTime(0.001, now + idx * 0.07); gain.gain.exponentialRampToValueAtTime(0.14, now + idx * 0.07 + 0.03); gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.65);
+                    osc.connect(gain); gain.connect(audioCtx.destination); osc.start(now + idx * 0.07); osc.stop(now + idx * 0.07 + 0.7);
                 });
             }
         }
 
         function toggleMusic() {
-            if (!settings.music) {
-                if (bgMusicOscillators.length) { bgMusicOscillators.forEach(o => { try{o.stop();}catch(e){} }); bgMusicOscillators = []; }
-                isMusicPlaying = false; return;
-            }
-            if(isMusicPlaying) return;
-            initAudio(); isMusicPlaying = true;
-            
+            if (!settings.music) { if (bgMusicOscillators.length) { bgMusicOscillators.forEach(o => { try{o.stop();}catch(e){} }); bgMusicOscillators = []; } isMusicPlaying = false; return; }
+            if(isMusicPlaying) return; initAudio(); isMusicPlaying = true;
             let noteIndex = 0;
             function loopMusic() {
-                if (!settings.music) return;
-                let now = audioCtx.currentTime;
-                
+                if (!settings.music) return; let now = audioCtx.currentTime;
                 if (noteIndex % 4 === 0) {
-                    let kick = audioCtx.createOscillator(), kickGain = audioCtx.createGain();
-                    kick.connect(kickGain); kickGain.connect(audioCtx.destination);
-                    kick.frequency.setValueAtTime(140, now); kick.frequency.exponentialRampToValueAtTime(0.01, now + 0.09);
-                    kickGain.gain.setValueAtTime(0.4, now); kickGain.gain.exponentialRampToValueAtTime(0.01, now + 0.09);
+                    let kick = audioCtx.createOscillator(), kickGain = audioCtx.createGain(); kick.connect(kickGain); kickGain.connect(audioCtx.destination);
+                    kick.frequency.setValueAtTime(140, now); kick.frequency.exponentialRampToValueAtTime(0.01, now + 0.09); kickGain.gain.setValueAtTime(0.4, now); kickGain.gain.exponentialRampToValueAtTime(0.01, now + 0.09);
                     kick.start(now); kick.stop(now + 0.09); bgMusicOscillators.push(kick);
                 }
-                
-                let bass = audioCtx.createOscillator(), bassGain = audioCtx.createGain();
-                bass.type = 'sine';
+                let bass = audioCtx.createOscillator(), bassGain = audioCtx.createGain(); bass.type = 'sine';
                 let freqs = [110, 110, 130.81, 110, 146.83, 110, 130.81, 110];
-                bass.frequency.setValueAtTime(freqs[noteIndex % freqs.length], now);
-                bass.connect(bassGain); bassGain.connect(audioCtx.destination);
-                bassGain.gain.setValueAtTime(0.08, now); bassGain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
-                bass.start(now); bass.stop(now + 0.1); bgMusicOscillators.push(bass);
-                
-                setTimeout(() => { bgMusicOscillators = bgMusicOscillators.filter(o => o.playbackState !== 3); }, 200);
-                noteIndex++; setTimeout(loopMusic, 135);
+                bass.frequency.setValueAtTime(freqs[noteIndex % freqs.length], now); bass.connect(bassGain); bassGain.connect(audioCtx.destination);
+                bassGain.gain.setValueAtTime(0.08, now); bassGain.gain.exponentialRampToValueAtTime(0.01, now + 0.1); bass.start(now); bass.stop(now + 0.1); bgMusicOscillators.push(bass);
+                setTimeout(() => { bgMusicOscillators = bgMusicOscillators.filter(o => o.playbackState !== 3); }, 200); noteIndex++; setTimeout(loopMusic, 135);
             }
             loopMusic();
         }
 
+        function changeTheme(themeName) { playSound('click'); document.documentElement.setAttribute('data-theme', themeName); localStorage.setItem('draftTheme', themeName); }
         function showScreen(screenId) { playSound('click'); document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(screenId).classList.add('active'); if(screenId === 'screen-history') loadHistory(); }
         function toggleSetting(key) { playSound('click'); settings[key] = document.getElementById('setting-' + key).checked; if(key === 'music') toggleMusic(); }
-        function changeTheme(themeName) { playSound('click'); document.documentElement.setAttribute('data-theme', themeName); }
         function goToFormation() { showScreen('screen-formation'); }
         function showExitModal() { playSound('click'); document.getElementById('exit-modal').style.display = 'flex'; }
         function closeExitModal() { playSound('click'); document.getElementById('exit-modal').style.display = 'none'; }
         function quitGame() { playSound('bad'); document.getElementById('exit-modal').style.display = 'none'; showScreen('screen-main'); }
+
+        function openConfirmClearModal() { playSound('click'); document.getElementById('confirm-clear-modal').style.display = 'flex'; }
+        function closeConfirmClearModal() { playSound('click'); document.getElementById('confirm-clear-modal').style.display = 'none'; }
+        function confirmClearHistory() { playSound('click'); localStorage.removeItem('draftHistoryFinal'); loadHistory(); closeConfirmClearModal(); }
 
         function loadHistory() {
             const historyList = document.getElementById('history-list'); historyList.innerHTML = '';
             const history = JSON.parse(localStorage.getItem('draftHistoryFinal')) || [];
             if(history.length === 0) { historyList.innerHTML = '<p style="text-align:center; color:var(--text-sub);">Henüz oynanmadı.</p>'; return; }
             history.sort((a,b) => b.score - a.score);
-            history.forEach((item, index) => { historyList.innerHTML += `<div class="history-item"><span><b>#${index+1}</b> ${item.formation}</span><span style="color:#f59e0b; font-weight:900;">${item.score} Ryt</span></div>`; });
+            history.forEach((item, index) => { 
+                historyList.innerHTML += `<div class="history-item"><span><b>#${index+1}</b> ${item.formation}</span><span style="color:var(--primary); font-weight:900;">${item.score} Ort.</span></div>`; 
+            });
         }
-        function clearHistory() { if(confirm("Geçmiş silinecek emin misin?")) { localStorage.removeItem('draftHistoryFinal'); loadHistory(); playSound('click'); } }
 
         function startGame(formationName, positions) {
             playSound('click'); document.getElementById('ingame-formation-name').innerText = formationName;
             filledCount = 0; currentSlots = [];
-            const pitch = document.getElementById('game-pitch');
-            pitch.innerHTML = '<div class="pitch-line-center"></div><div class="pitch-circle"></div>';
+            const pitch = document.getElementById('game-pitch'); pitch.innerHTML = '<div class="pitch-line-center"></div><div class="pitch-circle"></div>';
             document.getElementById('finish-btn').style.display = 'none';
 
             positions.forEach((posObj, index) => {
-                const slotId = 'slot-' + index;
-                currentSlots.push({ id: slotId, posTarget: posObj.p, player: null });
+                const slotId = 'slot-' + index; currentSlots.push({ id: slotId, posTarget: posObj.p, player: null });
                 const slotDiv = document.createElement('div'); slotDiv.className = 'player-slot'; slotDiv.id = slotId;
                 slotDiv.style.top = posObj.t + '%'; slotDiv.style.left = posObj.l + '%';
-                slotDiv.innerHTML = `<span class="slot-pos">${posObj.p}</span><span class="slot-name" style="margin-bottom:20px;">+</span>`;
-                slotDiv.onclick = () => openDraftModal(slotId, posObj.p);
-                pitch.appendChild(slotDiv);
+                slotDiv.innerHTML = `<span class="slot-pos">${posObj.p}</span><span class="slot-name" style="margin-bottom:18px;">+</span>`;
+                slotDiv.onclick = () => openDraftModal(slotId, posObj.p); pitch.appendChild(slotDiv);
             });
             showScreen('screen-game');
         }
 
-        async function getPlayerImage(wikiTitle, fallbackName) {
+        // GELİŞTİRİLMİŞ WIKIPEDIA ARAMA API + GARANTİLİ FALLBACK GÖRSELİ
+        async function getPlayerImage(playerName) {
             try {
-                const res = await fetch(`https://tr.wikipedia.org/w/api.php?action=query&titles=${wikiTitle}&prop=pageimages&format=json&pithumbsize=400&origin=*`);
-                const data = await res.json();
-                const pages = data.query.pages; const pageId = Object.keys(pages)[0];
-                if(pageId != -1 && pages[pageId].thumbnail) return pages[pageId].thumbnail.source;
+                const searchName = playerName.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                let res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(searchName + " footballer")}&gsrlimit=1&prop=pageimages&piprop=thumbnail&pithumbsize=400&format=json&origin=*`);
+                let data = await res.json();
+                if(data.query && data.query.pages) {
+                    let pages = data.query.pages;
+                    let firstId = Object.keys(pages)[0];
+                    if(pages[firstId] && pages[firstId].thumbnail && pages[firstId].thumbnail.source) {
+                        return pages[firstId].thumbnail.source;
+                    }
+                }
+
+                // Türkçe Wikipedia arama
+                res = await fetch(`https://tr.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${encodeURIComponent(searchName)}&gsrlimit=1&prop=pageimages&piprop=thumbnail&pithumbsize=400&format=json&origin=*`);
+                data = await res.json();
+                if(data.query && data.query.pages) {
+                    let pages = data.query.pages;
+                    let firstId = Object.keys(pages)[0];
+                    if(pages[firstId] && pages[firstId].thumbnail && pages[firstId].thumbnail.source) {
+                        return pages[firstId].thumbnail.source;
+                    }
+                }
             } catch(e) {}
-            return `https://ui-avatars.com/api/?background=fef08a&color=78350f&name=${encodeURIComponent(fallbackName)}&size=200&bold=true`;
+            return fallbackFaceAvatar;
         }
 
         async function openDraftModal(slotId, positionTarget) {
             playSound('click');
             const slotData = currentSlots.find(s => s.id === slotId); if(slotData.player != null) return; 
-
             activeSlotId = slotId; modalState = 'pick'; selectedIndex = -1;
             document.getElementById('draft-feedback').innerText = ''; document.getElementById('draft-confirm-btn').style.display = 'none';
             
             const optionsContainer = document.getElementById('draft-options');
-            optionsContainer.innerHTML = '<p style="color:white; font-weight:bold;">Oyuncular Getiriliyor...</p>';
+            optionsContainer.innerHTML = '<p style="color:white; font-weight:bold;"><i class="fa-solid fa-spinner fa-spin" style="margin-right:8px;"></i> Oyuncular Getiriliyor...</p>';
             document.getElementById('draft-modal').style.display = 'flex';
 
             let allowedPos = posGroups[positionTarget] || [positionTarget];
             let availablePlayers = playersData.filter(p => allowedPos.includes(p.pos));
             if(availablePlayers.length < 3) availablePlayers = playersData;
-
             const selectedNames = currentSlots.filter(s => s.player).map(s => s.player.name);
             availablePlayers = availablePlayers.filter(p => !selectedNames.includes(p.name));
 
             const shuffled = availablePlayers.sort(() => 0.5 - Math.random());
             draftOptions = shuffled.slice(0, 3);
             
-            for(let i=0; i<3; i++) {
-                draftOptions[i].imgUrl = await getPlayerImage(draftOptions[i].wiki, draftOptions[i].name);
+            for(let i=0; i<3; i++) { 
+                draftOptions[i].imgUrl = await getPlayerImage(draftOptions[i].name); 
             }
-
             renderDraftCards();
         }
 
         function renderDraftCards() {
             const optionsContainer = document.getElementById('draft-options'); optionsContainer.innerHTML = '';
-            
             draftOptions.forEach((player, index) => {
                 const card = document.createElement('div'); card.className = 'draft-card';
                 let isFlipped = (modalState === 'pick' && index === 0) || (modalState === 'reveal');
@@ -1102,7 +993,7 @@
                         <div class="card-back">
                             <div class="rating">${player.rat}</div>
                             <div class="pos">${player.pos}</div>
-                            <img src="${player.imgUrl || ''}" class="shield-clip" alt="${player.name}">
+                            <img src="${player.imgUrl || fallbackFaceAvatar}" class="shield-clip" alt="${player.name}" onerror="this.onerror=null; this.src='${fallbackFaceAvatar}';">
                             <div class="name">${player.name}</div>
                             <div class="team-container">
                                 <img src="${player.logoUrl || ''}" class="team-logo" alt="${player.team}">
@@ -1111,89 +1002,66 @@
                         </div>
                     </div>
                 `;
-                
-                card.onclick = () => handleCardClick(index);
-                optionsContainer.appendChild(card);
+                card.onclick = () => handleCardClick(index); optionsContainer.appendChild(card);
             });
         }
 
         function handleCardClick(index) {
             if(modalState !== 'pick') return;
-            playSound('flip'); 
-            modalState = 'reveal'; 
-            selectedIndex = index;
-
-            document.getElementById('draft-feedback').innerText = 'KARTLAR SAKİNCE AÇILIYOR...'; 
+            playSound('flip'); modalState = 'reveal'; selectedIndex = index;
+            document.getElementById('draft-feedback').innerText = 'KARTLAR AÇILIYOR...'; 
             document.getElementById('draft-feedback').style.color = 'white';
             
             const cards = document.querySelectorAll('.draft-card');
-            
-            // TÜM KARTLARI YAVAŞÇA AÇ
-            cards.forEach((card, i) => { 
-                card.querySelector('.card-inner').classList.add('flipped'); 
-            });
+            cards.forEach((card) => { card.querySelector('.card-inner').classList.add('flipped'); });
 
-            // TÜM KARTLARI RAHATÇE GÖRMEK İÇİN İNCELEME SÜRESİ (2.4 SN)
             setTimeout(() => {
-                // Seçilmeyenleri gizle, seçileni büyüt
-                cards.forEach((card, i) => {
-                    if (i !== index) {
-                        card.classList.add('unselected');
-                    } else {
-                        card.classList.add('selected-active');
-                    }
-                });
-
-                // BÜYÜYEN KARTIN IŞIK & SEÇİM SONUCU
+                cards.forEach((card, i) => { if (i !== index) card.classList.add('unselected'); else card.classList.add('selected-active'); });
                 setTimeout(() => {
-                    const selectedRat = draftOptions[selectedIndex].rat;
-                    const maxRat = Math.max(...draftOptions.map(p => p.rat));
-                    const feedbackEl = document.getElementById('draft-feedback');
-                    const selectedCardEl = cards[selectedIndex];
-
+                    const selectedRat = draftOptions[selectedIndex].rat; const maxRat = Math.max(...draftOptions.map(p => p.rat));
+                    const feedbackEl = document.getElementById('draft-feedback'); const selectedCardEl = cards[selectedIndex];
                     if(selectedRat === maxRat) {
-                        selectedCardEl.classList.add('glow-green');
-                        playSound('success'); 
-                        feedbackEl.innerText = '✨ HARİKA SEÇİM!'; 
-                        feedbackEl.style.color = '#34d399';
+                        selectedCardEl.classList.add('glow-green'); playSound('success'); 
+                        feedbackEl.innerText = '✨ EN YÜKSEK REYTİNG!'; feedbackEl.style.color = '#34d399';
                     } else {
-                        selectedCardEl.classList.add('glow-red');
-                        playSound('bad'); 
-                        feedbackEl.innerText = '🎯 YILDIZI KAÇIRDIN!'; 
-                        feedbackEl.style.color = '#f87171';
+                        selectedCardEl.classList.add('glow-red'); playSound('bad'); 
+                        feedbackEl.innerText = '🎯 SÜRPRİZ SEÇİM!'; feedbackEl.style.color = '#f87171';
                     }
                     document.getElementById('draft-confirm-btn').style.display = 'block';
-                }, 800);
-
-            }, 2400);
+                }, 700);
+            }, 2100);
         }
 
         function confirmCardSelection() {
             playSound('click'); const player = draftOptions[selectedIndex];
             const slotData = currentSlots.find(s => s.id === activeSlotId); slotData.player = player;
-
             const slotDiv = document.getElementById(activeSlotId); slotDiv.classList.add('filled');
+            
+            // OYUNCU REYTİNGİNİN ARKASINDA BELİRGİN VE SOLUK TAKIM LOGOSU WATERMARK
             slotDiv.innerHTML = `
-                <img src="${player.imgUrl}" class="slot-img shield-clip">
+                <img src="${player.imgUrl || fallbackFaceAvatar}" class="slot-img shield-clip" onerror="this.onerror=null; this.src='${fallbackFaceAvatar}';">
+                <img src="${player.logoUrl}" class="slot-team-logo-bg" alt="${player.team}">
                 <span class="slot-pos">${player.pos}</span>
                 <span class="slot-rating">${player.rat}</span>
                 <span class="slot-name">${player.name}</span>
             `;
-
             document.getElementById('draft-modal').style.display = 'none'; activeSlotId = null; filledCount++;
             if(filledCount === 11) document.getElementById('finish-btn').style.display = 'block'; 
         }
 
         function finishGame() {
-            playSound('success');
+            playSound('success'); 
             let totalRating = 0; currentSlots.forEach(slot => { totalRating += slot.player.rat; });
-            let avgRating = Math.round(totalRating / 11);
+            let avgRating = Math.round(totalRating / 11); 
+
             document.getElementById('final-avg').innerText = avgRating;
-            
+
             let history = JSON.parse(localStorage.getItem('draftHistoryFinal')) || [];
-            history.push({ formation: document.getElementById('ingame-formation-name').innerText, score: avgRating });
+            history.push({ 
+                formation: document.getElementById('ingame-formation-name').innerText, 
+                score: avgRating
+            });
             localStorage.setItem('draftHistoryFinal', JSON.stringify(history));
-            
             showScreen('screen-result');
         }
     </script>
