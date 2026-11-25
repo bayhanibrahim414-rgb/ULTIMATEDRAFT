@@ -3,7 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Ultimate Draft">
+    <meta name="theme-color" content="#071927">
+    <link id="apple-touch-icon" rel="apple-touch-icon" sizes="180x180" href="">
+    <link id="app-favicon" rel="icon" type="image/png" href="">
+    <link id="app-manifest" rel="manifest" href="">
     <title>Ultimate Draft</title>
+    <script>
+        (function generateUltimateDraftHomeIcon() {
+            const size = 512;
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            // Arka plan (Gece Lacivert stadyum geçişi)
+            const bgGrad = ctx.createLinearGradient(0, 0, size, size);
+            bgGrad.addColorStop(0, '#071927');
+            bgGrad.addColorStop(0.5, '#0c2a42');
+            bgGrad.addColorStop(1, '#033954');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, size, size);
+
+            // Merkez ışık halesi
+            const aura = ctx.createRadialGradient(256, 256, 30, 256, 256, 245);
+            aura.addColorStop(0, 'rgba(56, 189, 248, 0.28)');
+            aura.addColorStop(0.55, 'rgba(245, 158, 11, 0.14)');
+            aura.addColorStop(1, 'rgba(7, 25, 39, 0)');
+            ctx.fillStyle = aura;
+            ctx.fillRect(0, 0, size, size);
+
+            // 200x220 vektör koordinatlarını 512x512 ikona ölçekle
+            ctx.save();
+            const s = 2.15;
+            ctx.translate((size - 200 * s) / 2, (size - 220 * s) / 2);
+            ctx.scale(s, s);
+
+            // Dış enerji halkası
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(100, 111, 90, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(56, 189, 248, 0.35)';
+            ctx.lineWidth = 2.5;
+            ctx.setLineDash([18, 10]);
+            ctx.stroke();
+            ctx.restore();
+
+            function traceShield(pts) {
+                ctx.beginPath();
+                ctx.moveTo(pts[0][0], pts[0][1]);
+                for (let i = 1; i < pts.length; i++) {
+                    ctx.lineTo(pts[i][0], pts[i][1]);
+                }
+                ctx.closePath();
+            }
+
+            // Dış Altın Kalkan
+            const outerShield = [
+                [34, 24], [166, 24], [184, 46], [184, 152], [100, 198], [16, 152], [16, 46]
+            ];
+            ctx.save();
+            ctx.shadowColor = 'rgba(245, 158, 11, 0.5)';
+            ctx.shadowBlur = 18;
+            ctx.shadowOffsetY = 6;
+            const goldGrad = ctx.createLinearGradient(16, 24, 184, 198);
+            goldGrad.addColorStop(0, '#fef08a');
+            goldGrad.addColorStop(0.5, '#f59e0b');
+            goldGrad.addColorStop(1, '#b45309');
+            traceShield(outerShield);
+            ctx.fillStyle = goldGrad;
+            ctx.fill();
+            ctx.restore();
+
+            // İç Lacivert Zemin Kalkan
+            const innerShield = [
+                [40, 31], [160, 31], [176, 50], [176, 148], [100, 189], [24, 148], [24, 50]
+            ];
+            const innerGrad = ctx.createLinearGradient(100, 31, 100, 189);
+            innerGrad.addColorStop(0, '#0f3452');
+            innerGrad.addColorStop(1, '#061523');
+            traceShield(innerShield);
+            ctx.fillStyle = innerGrad;
+            ctx.fill();
+
+            // Üst cam parlama yansıması
+            ctx.save();
+            traceShield(innerShield);
+            ctx.clip();
+            const sheen = ctx.createLinearGradient(24, 31, 150, 130);
+            sheen.addColorStop(0, 'rgba(255, 255, 255, 0.16)');
+            sheen.addColorStop(1, 'rgba(255, 255, 255, 0)');
+            ctx.fillStyle = sheen;
+            ctx.beginPath();
+            ctx.moveTo(20, 28);
+            ctx.lineTo(175, 28);
+            ctx.lineTo(20, 135);
+            ctx.closePath();
+            ctx.fill();
+            ctx.restore();
+
+            // Şampiyonluk Tacı
+            const crownGrad = ctx.createLinearGradient(72, 41, 128, 66);
+            crownGrad.addColorStop(0, '#fef08a');
+            crownGrad.addColorStop(1, '#f59e0b');
+            ctx.fillStyle = crownGrad;
+            ctx.beginPath();
+            ctx.moveTo(76, 61);
+            ctx.lineTo(72, 45);
+            ctx.lineTo(88, 54);
+            ctx.lineTo(100, 40);
+            ctx.lineTo(112, 54);
+            ctx.lineTo(128, 45);
+            ctx.lineTo(124, 61);
+            ctx.closePath();
+            ctx.fill();
+            ctx.fillRect(76, 63, 48, 4);
+
+            // Yan Kanat Çizgileri
+            ctx.fillStyle = '#38bdf8';
+            ctx.beginPath();
+            ctx.moveTo(32, 104); ctx.lineTo(63, 104); ctx.lineTo(60, 110); ctx.lineTo(36, 110);
+            ctx.closePath(); ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(168, 104); ctx.lineTo(137, 104); ctx.lineTo(140, 110); ctx.lineTo(164, 110);
+            ctx.closePath(); ctx.fill();
+
+            ctx.fillStyle = '#f59e0b';
+            ctx.beginPath();
+            ctx.moveTo(39, 115); ctx.lineTo(63, 115); ctx.lineTo(66, 121); ctx.lineTo(44, 121);
+            ctx.closePath(); ctx.fill();
+            ctx.beginPath();
+            ctx.moveTo(161, 115); ctx.lineTo(137, 115); ctx.lineTo(134, 121); ctx.lineTo(156, 121);
+            ctx.closePath(); ctx.fill();
+
+            // Merkez Futbol Topu
+            const bx = 100, by = 112, br = 31;
+            const ballGrad = ctx.createRadialGradient(bx - 10, by - 10, 3, bx, by, br);
+            ballGrad.addColorStop(0, '#ffffff');
+            ballGrad.addColorStop(0.75, '#e2e8f0');
+            ballGrad.addColorStop(1, '#94a3b8');
+            ctx.beginPath();
+            ctx.arc(bx, by, br, 0, Math.PI * 2);
+            ctx.fillStyle = ballGrad;
+            ctx.fill();
+            ctx.lineWidth = 2.8;
+            ctx.strokeStyle = '#f59e0b';
+            ctx.stroke();
+
+            // Top Üzeri Beşgen Desen
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(bx, by, br - 1, 0, Math.PI * 2);
+            ctx.clip();
+
+            const pentR = 11.5;
+            const pentPts = [];
+            for (let i = 0; i < 5; i++) {
+                const ang = (-90 + i * 72) * Math.PI / 180;
+                pentPts.push([bx + pentR * Math.cos(ang), by + pentR * Math.sin(ang)]);
+            }
+            ctx.beginPath();
+            ctx.moveTo(pentPts[0][0], pentPts[0][1]);
+            for (let i = 1; i < 5; i++) ctx.lineTo(pentPts[i][0], pentPts[i][1]);
+            ctx.closePath();
+            ctx.fillStyle = '#071927';
+            ctx.fill();
+
+            ctx.strokeStyle = '#071927';
+            ctx.lineWidth = 2.2;
+            for (let i = 0; i < 5; i++) {
+                const ang = (-90 + i * 72) * Math.PI / 180;
+                const ox = bx + 27 * Math.cos(ang);
+                const oy = by + 27 * Math.sin(ang);
+                ctx.beginPath();
+                ctx.moveTo(pentPts[i][0], pentPts[i][1]);
+                ctx.lineTo(ox, oy);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.arc(ox, oy, 6.5, 0, Math.PI * 2);
+                ctx.fillStyle = '#071927';
+                ctx.fill();
+            }
+            ctx.restore();
+
+            // Alt 3 Şampiyonluk Yıldızı
+            function drawStar(cx, cy, r) {
+                ctx.beginPath();
+                for (let i = 0; i < 10; i++) {
+                    const rad = i % 2 === 0 ? r : r * 0.45;
+                    const ang = (-90 + i * 36) * Math.PI / 180;
+                    const x = cx + rad * Math.cos(ang);
+                    const y = cy + rad * Math.sin(ang);
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.fillStyle = '#fef08a';
+                ctx.fill();
+            }
+            drawStar(77, 156, 5.5);
+            drawStar(100, 164, 7.5);
+            drawStar(123, 156, 5.5);
+
+            ctx.restore();
+
+            const iconDataUrl = canvas.toDataURL('image/png');
+            document.getElementById('apple-touch-icon').href = iconDataUrl;
+            document.getElementById('app-favicon').href = iconDataUrl;
+
+            const manifest = {
+                name: 'Ultimate Draft',
+                short_name: 'Ultimate Draft',
+                start_url: '.',
+                display: 'standalone',
+                background_color: '#071927',
+                theme_color: '#071927',
+                icons: [
+                    { src: iconDataUrl, sizes: '512x512', type: 'image/png' }
+                ]
+            };
+            document.getElementById('app-manifest').href =
+                'data:application/manifest+json;charset=utf-8,' + encodeURIComponent(JSON.stringify(manifest));
+        })();
+    </script>
     <!-- FontAwesome & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -53,7 +278,41 @@
         .screen { display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: flex-start; padding: 20px; overflow-y: auto; position: relative;}
         .screen.active { display: flex; }
 
-        .glass-panel { background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 2px solid var(--glass-border); border-radius: 24px; padding: 30px; text-align: center; box-shadow: 0 16px 40px var(--shadow-color), 0 2px 10px rgba(0,0,0,0.5); max-width: 460px; width: 100%; margin: auto; transition: all 0.5s ease;}
+        .glass-panel { background: var(--card-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 2px solid var(--glass-border); border-radius: 24px; padding: 26px 28px; text-align: center; box-shadow: 0 16px 40px var(--shadow-color), 0 2px 10px rgba(0,0,0,0.5); max-width: 460px; width: 100%; margin: auto; transition: all 0.5s ease;}
+
+        /* ANA MENÜ LOGOSU */
+        .ud-hero-logo {
+            width: 104px;
+            height: 114px;
+            margin: 0 auto 8px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            filter: drop-shadow(0 8px 18px var(--shadow-color));
+            animation: udLogoFloat 3.6s ease-in-out infinite;
+        }
+        .ud-hero-logo svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+        .ud-orbit-ring {
+            transform-origin: 100px 111px;
+            animation: udSpinSlow 14s linear infinite;
+            stroke: var(--primary);
+        }
+        .ud-wing-primary {
+            fill: var(--primary);
+            transition: fill 0.4s ease;
+        }
+        @keyframes udLogoFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-4px) scale(1.02); }
+        }
+        @keyframes udSpinSlow {
+            100% { transform: rotate(360deg); }
+        }
 
         h1, h2 { background: linear-gradient(135deg, #ffffff, var(--primary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; text-transform: uppercase; letter-spacing: -0.5px; transition: all 0.5s ease;}
         h1 { font-size: 2.2rem; margin-bottom: 8px; } 
@@ -151,6 +410,74 @@
     <!-- ANA MENÜ -->
     <div id="screen-main" class="screen active" style="justify-content: center;">
         <div class="glass-panel">
+            <!-- ULTIMATE DRAFT ÖZEL ARMA LOGOSU -->
+            <div class="ud-hero-logo" aria-hidden="true">
+                <svg viewBox="0 0 200 220">
+                    <defs>
+                        <linearGradient id="udGoldOuter" x1="16" y1="24" x2="184" y2="198" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#fef08a"/>
+                            <stop offset="50%" stop-color="#f59e0b"/>
+                            <stop offset="100%" stop-color="#b45309"/>
+                        </linearGradient>
+                        <linearGradient id="udNavyInner" x1="100" y1="31" x2="100" y2="189" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#0f3452"/>
+                            <stop offset="100%" stop-color="#061523"/>
+                        </linearGradient>
+                        <radialGradient id="udBallGrad" cx="35%" cy="35%" r="65%">
+                            <stop offset="0%" stop-color="#ffffff"/>
+                            <stop offset="75%" stop-color="#e2e8f0"/>
+                            <stop offset="100%" stop-color="#94a3b8"/>
+                        </radialGradient>
+                        <clipPath id="udBallClip">
+                            <circle cx="100" cy="112" r="30"/>
+                        </clipPath>
+                    </defs>
+
+                    <!-- Dış Dönen Enerji Halkası -->
+                    <circle class="ud-orbit-ring" cx="100" cy="111" r="90" fill="none" stroke-width="2.5" stroke-dasharray="18 10" stroke-opacity="0.55"/>
+
+                    <!-- Altın Dış Kalkan -->
+                    <polygon points="34,24 166,24 184,46 184,152 100,198 16,152 16,46" fill="url(#udGoldOuter)"/>
+
+                    <!-- İç Koyu Kalkan -->
+                    <polygon points="40,31 160,31 176,50 176,148 100,189 24,148 24,50" fill="url(#udNavyInner)"/>
+
+                    <!-- Üst Cam Parlama Yansıması -->
+                    <polygon points="40,31 160,31 24,132 24,50" fill="rgba(255,255,255,0.12)"/>
+
+                    <!-- Şampiyonluk Tacı -->
+                    <polygon points="76,61 72,45 88,54 100,40 112,54 128,45 124,61" fill="url(#udGoldOuter)"/>
+                    <rect x="76" y="63" width="48" height="4" rx="1.5" fill="url(#udGoldOuter)"/>
+
+                    <!-- Hız Kanatları -->
+                    <polygon class="ud-wing-primary" points="32,104 63,104 60,110 36,110"/>
+                    <polygon class="ud-wing-primary" points="168,104 137,104 140,110 164,110"/>
+                    <polygon points="39,115 63,115 66,121 44,121" fill="#f59e0b"/>
+                    <polygon points="161,115 137,115 134,121 156,121" fill="#f59e0b"/>
+
+                    <!-- Merkez Futbol Topu -->
+                    <circle cx="100" cy="112" r="31" fill="url(#udBallGrad)" stroke="#f59e0b" stroke-width="2.8"/>
+                    <g clip-path="url(#udBallClip)">
+                        <polygon points="100,100.5 110.9,108.4 106.8,121.3 93.2,121.3 89.1,108.4" fill="#071927"/>
+                        <line x1="100" y1="100.5" x2="100" y2="85" stroke="#071927" stroke-width="2.2"/>
+                        <line x1="110.9" y1="108.4" x2="125.7" y2="103.7" stroke="#071927" stroke-width="2.2"/>
+                        <line x1="106.8" y1="121.3" x2="115.9" y2="133.8" stroke="#071927" stroke-width="2.2"/>
+                        <line x1="93.2" y1="121.3" x2="84.1" y2="133.8" stroke="#071927" stroke-width="2.2"/>
+                        <line x1="89.1" y1="108.4" x2="74.3" y2="103.7" stroke="#071927" stroke-width="2.2"/>
+                        <circle cx="100" cy="85" r="6.5" fill="#071927"/>
+                        <circle cx="125.7" cy="103.7" r="6.5" fill="#071927"/>
+                        <circle cx="115.9" cy="133.8" r="6.5" fill="#071927"/>
+                        <circle cx="84.1" cy="133.8" r="6.5" fill="#071927"/>
+                        <circle cx="74.3" cy="103.7" r="6.5" fill="#071927"/>
+                    </g>
+
+                    <!-- Alt 3 Şampiyonluk Yıldızı -->
+                    <polygon points="77,150.5 78.5,154.1 82.2,154.3 79.4,156.8 80.2,160.5 77,158.5 73.8,160.5 74.6,156.8 71.8,154.3 75.5,154.1" fill="#fef08a"/>
+                    <polygon points="100,156.5 102,161.4 107.1,161.7 103.2,165 104.4,170.1 100,167.4 95.6,170.1 96.8,165 92.9,161.7 98,161.4" fill="#fef08a"/>
+                    <polygon points="123,150.5 124.5,154.1 128.2,154.3 125.4,156.8 126.2,160.5 123,158.5 119.8,160.5 120.6,156.8 117.8,154.3 121.5,154.1" fill="#fef08a"/>
+                </svg>
+            </div>
+
             <h1>ULTIMATE DRAFT</h1>
             <p style="color: var(--text-sub); margin-bottom: 20px; font-weight: 600;">Güncellenmiş Kadrolar & Yüksek Çözünürlüklü Logolar</p>
             <button onclick="goToFormation()"><i class="fa-solid fa-play" style="margin-right:8px;"></i> YENİ OYUN</button>
